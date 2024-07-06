@@ -7,8 +7,6 @@
   },
   "scripts": {
     "build": "phat-fn build --experimentalAsync",
-    "test": "tsx src/test.ts",
-    "lint": "tsc --noEmit",
     "publish-agent": "curl -F file=@./dist/index.js https://agents.phala.network/ipfs > ../../frontend/algorithm-cdis.json"
   },
   "devDependencies": {

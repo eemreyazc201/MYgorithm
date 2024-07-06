@@ -8,10 +8,11 @@ import { WagmiProvider } from 'wagmi';
 import { sepolia, mainnet } from 'wagmi/chains';
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
-import {getPosts, createPost, likePost, unlikePost, isLiked} from "../contract-interface/interface";
+import { getPosts, createPost, likePost, unlikePost, isLiked } from "../contract-interface/interface";
 import { PROJECT_ID } from '../config';
 
 import axios from 'axios';
+import uri from '../algorithm-cdis.json';
 
 const queryClient = new QueryClient();
 const config = getDefaultConfig({
@@ -51,10 +52,12 @@ export default function Homepage () {
                 </div>
 
 
-                <button onClick={async () => {console.log((await axios.post("http://localhost:4000/algorithm", {
+                <button onClick={async () => {console.log(`https://agents.phala.network/ipfs/${uri.uri.substring("ipfs://".length)}`); 
+                
+                console.log((await axios.post("http://localhost:4000/algorithm", {
                   posts: await getPosts(),
-                  agentURL: "https://agents.phala.network/ipfs/QmbpXVTHQKjNyPZft3LPUDHJipXUYryaRc3YJGAQah98bk/0"
-                  }, {})).data.posts);
+                  agentURL: `https://agents.phala.network/ipfs/${uri.uri.substring("ipfs://".length)}`
+                  }, {})));
                 }}>Click It</button>
 
 
