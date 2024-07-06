@@ -13,6 +13,7 @@ import { PROJECT_ID } from '../config';
 
 import axios from 'axios';
 import uri from '../algorithm-cdis.json';
+import uris from '../uris.json';
 
 const queryClient = new QueryClient();
 const config = getDefaultConfig({
@@ -24,6 +25,8 @@ const config = getDefaultConfig({
 export default function Homepage () {
   const [postText, setPostText] = useState('');
   const [hashtags, setHashtags] = useState('');
+  const [key, setKey] = useState('');
+  const [value, setValue] = useState('');
   const [posts, setPosts] = useState([]);
   getPosts().then(post => {setPosts(post)});
   const textareaRef = useRef(null);
@@ -42,14 +45,28 @@ export default function Homepage () {
             <div className="Homepage">
               <ConnectButton label="Sign in" accountStatus="avatar" chainStatus="icon" showBalance={true} />
               <div className="main">
-                <div className="algorithms">
-                  <p>algorithms1</p>
-                  <p>algorithms2</p>
-                  <p>algorithms3</p>
-                  <p>algorithms4</p>
-                  <p>algorithms5</p>
-                  <p>algorithms6</p>
-                </div>
+                <div className="algorithms">{Object.entries(uris).map(([key, uri]) => (
+                  <button>{key}</button>
+                ))}</div>
+                <input 
+                    type="text" 
+                    value={key}
+                    onChange={(e) => setKey(e.target.value)}
+                    placeholder="Algorithm Name"
+                />
+                <input 
+                    type="text" 
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    placeholder="Algorithm URI"
+                />
+                <button onClick={async () => {
+                  axios.post("http://localhost:4000/add-algorithm", {
+                    key: key,
+                    value: value,
+                    uris: uris
+                  },{})
+                }}>Add Algorithm</button>
 
 
                 <button onClick={async () => {console.log(`https://agents.phala.network/ipfs/${uri.uri.substring("ipfs://".length)}`); 
