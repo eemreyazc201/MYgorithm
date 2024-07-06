@@ -49,7 +49,14 @@ export default function Homepage () {
                 <section>
 
                   <div className="algorithms">{Object.entries(uris).map(([key, uri]) => (
-                    <button key={key}>{key}</button>
+                    <button key={key} onClick={async () => {
+                      let feed = (await axios.post("http://localhost:4000/algorithm", {
+                        posts: await getPosts(),
+                        agentURL: `https://agents.phala.network/ipfs/${uri.substring("ipfs://".length)}`
+                        }, {})).data; 
+  
+                      setPosts(feed);
+                    }}>{key}</button>
                   ))}</div>
                   <input 
                       type="text" 
@@ -70,25 +77,8 @@ export default function Homepage () {
                       uris: uris
                     },{})
                   }}>Add Algorithm</button>
-                  
-
-
-                  <button onClick={async () => {
-                    // console.log(`https://agents.phala.network/ipfs/${uri.uri.substring("ipfs://".length)}`); 
-                  
-                    let feed = (await axios.post("http://localhost:4000/algorithm", {
-                      posts: await getPosts(),
-                      agentURL: `https://agents.phala.network/ipfs/${uri.uri.substring("ipfs://".length)}`
-                      }, {})).data; 
-
-                    console.log(feed);
-                    setPosts(feed);
-
-                  }}>Click It</button>
 
                 </section>
-
-
                 <div className='divider'></div>
                 <div className="posts">
                   {posts.map(post => (
