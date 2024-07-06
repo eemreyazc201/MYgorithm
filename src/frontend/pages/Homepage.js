@@ -57,7 +57,7 @@ export default function Homepage () {
                 console.log((await axios.post("http://localhost:4000/algorithm", {
                   posts: await getPosts(),
                   agentURL: `https://agents.phala.network/ipfs/${uri.uri.substring("ipfs://".length)}`
-                  }, {})));
+                  }, {})).data.posts);
                 }}>Click It</button>
 
 

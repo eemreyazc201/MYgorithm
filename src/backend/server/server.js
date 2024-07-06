@@ -26,7 +26,7 @@ app.post('/algorithm', async (req, res) => {
     axios.post(agentURL, {
         posts: data
     }, {}).then((response) => {
-        return response.data.body;
+        return response.config.data;
     }).then(feed => {
         res.send(feed);
     }).catch((error) => {
