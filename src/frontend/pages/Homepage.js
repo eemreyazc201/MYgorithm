@@ -28,7 +28,6 @@ export default function Homepage () {
   const [key, setKey] = useState('');
   const [value, setValue] = useState('');
   const [posts, setPosts] = useState([]);
-  getPosts().then(post => {setPosts(post)});
   const textareaRef = useRef(null);
 
   useEffect(() => {
@@ -36,6 +35,8 @@ export default function Homepage () {
       textareaRef.current.style.height = 'auto';
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
+
+    getPosts().then(post => {setPosts(post)});
   }, [postText]);
 
   return (
@@ -45,57 +46,65 @@ export default function Homepage () {
             <div className="Homepage">
               <ConnectButton label="Sign in" accountStatus="avatar" chainStatus="icon" showBalance={true} />
               <div className="main">
-                <div className="algorithms">{Object.entries(uris).map(([key, uri]) => (
-                  <button>{key}</button>
-                ))}</div>
-                <input 
-                    type="text" 
-                    value={key}
-                    onChange={(e) => setKey(e.target.value)}
-                    placeholder="Algorithm Name"
-                />
-                <input 
-                    type="text" 
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
-                    placeholder="Algorithm URI"
-                />
-                <button onClick={async () => {
-                  axios.post("http://localhost:4000/add-algorithm", {
-                    key: key,
-                    value: value,
-                    uris: uris
-                  },{})
-                }}>Add Algorithm</button>
+                <section>
+
+                  <div className="algorithms">{Object.entries(uris).map(([key, uri]) => (
+                    <button key={key}>{key}</button>
+                  ))}</div>
+                  <input 
+                      type="text" 
+                      value={key}
+                      onChange={(e) => setKey(e.target.value)}
+                      placeholder="Algorithm Name"
+                  />
+                  <input 
+                      type="text" 
+                      value={value}
+                      onChange={(e) => setValue(e.target.value)}
+                      placeholder="Algorithm URI"
+                  />
+                  <button onClick={async () => {
+                    axios.post("http://localhost:4000/add-algorithm", {
+                      key: key,
+                      value: value,
+                      uris: uris
+                    },{})
+                  }}>Add Algorithm</button>
+                  
 
 
-                <button onClick={async () => {console.log(`https://agents.phala.network/ipfs/${uri.uri.substring("ipfs://".length)}`); 
-                
-                console.log((await axios.post("http://localhost:4000/algorithm", {
-                  posts: await getPosts(),
-                  agentURL: `https://agents.phala.network/ipfs/${uri.uri.substring("ipfs://".length)}`
-                  }, {})).data.posts);
-                }}>Click It</button>
+                  <button onClick={async () => {
+                    // console.log(`https://agents.phala.network/ipfs/${uri.uri.substring("ipfs://".length)}`); 
+                  
+                    let feed = (await axios.post("http://localhost:4000/algorithm", {
+                      posts: await getPosts(),
+                      agentURL: `https://agents.phala.network/ipfs/${uri.uri.substring("ipfs://".length)}`
+                      }, {})).data; 
 
+                    console.log(feed);
+                    setPosts(feed);
 
+                  }}>Click It</button>
+
+                </section>
 
 
                 <div className='divider'></div>
                 <div className="posts">
                   {posts.map(post => (
-                    <div key={parseInt(post.id._hex, 16)} className="post">
+                    <div key={post.id} className="post">
                       <p>Author: {post.author}</p>
                       <p>{post.content}</p>
                       <div>
                         {post.hashtags.map(tag => (
-                          <span key={tag} className="hashtag">#{tag}</span>
+                          <span key={tag} className="hashtag">{tag}</span>
                         ))}
                       </div>
                       <button className="like-button" onClick={async () => {
-                        if (await isLiked(parseInt(post.id._hex, 16))) {
-                          await unlikePost(parseInt(post.id._hex, 16));
+                        if (await isLiked(post.id)) {
+                          await unlikePost(post.id);
                         } else {
-                          await likePost(parseInt(post.id._hex, 16));
+                          await likePost(post.id);
                         }
                       }}>{`Like ${(post.like.length)}`}</button>
                     </div>
@@ -116,7 +125,13 @@ export default function Homepage () {
                   />
                   <button onClick={async () => {
                     createPost(postText, hashtags.split(' ').map(tag => tag.startsWith(' #') ? tag.substring(1) : tag));
-                    setPostText(''); setHashtags(''); setPosts(await getPosts());
+                    setPostText(''); setHashtags(''); 
+                    let feed = (await axios.post("http://localhost:4000/algorithm", {
+                      posts: await getPosts(),
+                      agentURL: `https://agents.phala.network/ipfs/${uri.uri.substring("ipfs://".length)}`
+                      }, {})).data; 
+
+                    setPosts(feed);
                   }}>Post</button>
                 </div>
               </div>

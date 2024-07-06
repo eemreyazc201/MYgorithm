@@ -17,7 +17,13 @@ export async function getPosts () {
     const postCount = await getPostCount();
     for (let i = 0; i < postCount; i++) {
         const post = await contract.getPost(i);
-        posts.push(post);
+        posts.push({
+            id: i,
+            content: post.content,
+            author: post.author,
+            like: post.like,
+            hashtags: post.hashtags
+        });
     }
     return posts;
 }
@@ -47,7 +53,7 @@ export async function likedPosts () {
     const posts = await getPosts();
 
     for (let post of posts) {
-        if (await isLiked(parseInt(post.id._hex, 16))) {
+        if (await isLiked(post.id)) {
             likedPosts.push(post);
         }
     }

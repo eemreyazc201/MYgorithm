@@ -7,8 +7,12 @@
     display: flex; align-items: top; justify-content: left; margin: 10px; width: 100%; height: 100%;
 }
 
+.Homepage > .main > section {
+    display: flex; align-items: center; justify-content: center; flex-direction: column; background-color: blue; width: 20%; height: 100%;
+}
+
 .Homepage > .main > .algorithms {
-    width: 20%; height: 100%; background-color: blue; left: 0px; padding: 10px; flex-direction: column;
+     height: 100%; left: 0px; padding: 10px;
 }
 
 .Homepage > .main > .divider {

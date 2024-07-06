@@ -12,22 +12,12 @@ app.listen(port, () => {console.log(`Server is running on port ${port}.`);});
 
 app.post('/algorithm', async (req, res) => {
     let posts = req.body.posts;
-    data = [];
-    for (let post of posts) {
-        data.push({
-            id: parseInt(post[0].hex, 16),
-            content: post[1],
-            author: post[2],
-            like: post[3],
-            hashtags: post[4]
-        })
-    }
     let agentURL = req.body.agentURL;
 
     axios.post(agentURL, {
-        posts: data
+        posts: posts
     }, {}).then((response) => {
-        return response.config.data;
+        return response.data;
     }).then(feed => {
         res.send(feed);
     }).catch((error) => {
