@@ -1,0 +1,6 @@
+node_modules
+src/backend/artifacts
+src/backend/cache
+src/frontend/config.js
+yarn.lock
+.env
