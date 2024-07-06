@@ -1,0 +1,21 @@
+{
+  "name": "phala-network-mygorithm-agents",
+  "version": "0.0.1",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "phat-fn build --experimentalAsync",
+    "test": "tsx src/test.ts",
+    "lint": "tsc --noEmit",
+    "publish-agent": "curl -F file=@./dist/index.js https://agents.phala.network/ipfs > ../../frontend/algorithm-cdis.json"
+  },
+  "devDependencies": {
+    "@phala/fn": "^0.2.20",
+    "dotenv": "^16.4.5",
+    "thirdweb": "^5.32.3",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  }
+}

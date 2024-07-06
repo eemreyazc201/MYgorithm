@@ -8,7 +8,7 @@
 }
 
 .Homepage > .main > .algorithms {
-    width: 20%; height: 100%; background-color: blue; left: 0px;
+    width: 20%; height: 100%; background-color: blue; left: 0px; padding: 10px;
 }
 
 .Homepage > .main > .divider {

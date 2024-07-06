@@ -11,6 +11,8 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import {getPosts, createPost, likePost, unlikePost, isLiked} from "../contract-interface/interface";
 import { PROJECT_ID } from '../config';
 
+import axios from 'axios';
+
 const queryClient = new QueryClient();
 const config = getDefaultConfig({
   projectId: PROJECT_ID,
@@ -47,6 +49,17 @@ export default function Homepage () {
                   <p>algorithms5</p>
                   <p>algorithms6</p>
                 </div>
+
+
+                <button onClick={async () => {console.log((await axios.post("http://localhost:4000/algorithm", {
+                  posts: await getPosts(),
+                  agentURL: "https://agents.phala.network/ipfs/QmbpXVTHQKjNyPZft3LPUDHJipXUYryaRc3YJGAQah98bk/0"
+                  }, {})).data.posts);
+                }}>Click It</button>
+
+
+
+
                 <div className='divider'></div>
                 <div className="posts">
                   {posts.map(post => (
