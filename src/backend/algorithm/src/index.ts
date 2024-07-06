@@ -1,7 +1,7 @@
 import { Request, Response, route } from './httpSupport'
 
 async function POST(req: Request): Promise<Response> {
-    let output = (await req.json()).body.posts;
+    let output = (await req.json());
 
     return new Response(output);
 }
