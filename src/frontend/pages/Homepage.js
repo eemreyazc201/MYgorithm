@@ -87,7 +87,9 @@ export default function Homepage () {
                       }}>{key}</button>
                     ))}
                   </div>  
-                  <a href="https://www.youtube.com">github link to Build an Agent</a>
+                  <a href="https://github.com/eemreyazc201/Phala-Network-Agent-Builder-Guide-For-MYgorithm">
+                    github link to Build an Agent
+                  </a>
                 </div>
               </div>
 
