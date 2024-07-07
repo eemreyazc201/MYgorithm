@@ -53,9 +53,22 @@
     width: 100%; height: 0.2%; background-color: #b29eca; margin: 2% 0 2% 0;
 }
 
-.left > .algorithms > button {
-    min-width: 100%; height: 7%; padding: 2%; margin: 2% 0; background-color: #212121;
+.left > .algorithms {
+    width: 100%; height: 70%;
+}
+
+.left > .algorithms > div {
+    width: 100%; height: 90%; overflow-y: scroll; border-bottom: #b29eca 1px solid; margin-bottom: 5px;
+}
+
+.left > .algorithms > div > button {
+    min-width: 100%; height: 12%; padding: 2%; margin: 2% 0; background-color: #212121;
     border: none; border-radius: 5px; color: #b29eca;
+}
+
+.left > .algorithms > a {
+    color: #b29eca; display: flex; align-items: center; justify-content: center;
+
 }
 
 .right > .new-post > textarea {

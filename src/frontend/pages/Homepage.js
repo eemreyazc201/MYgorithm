@@ -74,16 +74,21 @@ export default function Homepage () {
                   },{})
                 }}>Add Algorithm</button>
                 <div className='divider'></div>
-                <div className="algorithms">{Object.entries(uris).map(([key, uri]) => (
-                  <button key={key} onClick={async () => {
-                    let feed = (await axios.post("http://localhost:4000/algorithm", {
-                      posts: await getPosts(),
-                      agentURL: `https://agents.phala.network/ipfs/${uri.substring("ipfs://".length)}`
-                      }, {})).data; 
+                <div className="algorithms">
+                  <div>
+                    {Object.entries(uris).map(([key, uri]) => (
+                      <button key={key} onClick={async () => {
+                        let feed = (await axios.post("http://localhost:4000/algorithm", {
+                          posts: await getPosts(),
+                          agentURL: `https://agents.phala.network/ipfs/${uri.substring("ipfs://".length)}`
+                          }, {})).data; 
 
-                    setPosts(feed);
-                  }}>{key}</button>
-                ))}</div>
+                        setPosts(feed);
+                      }}>{key}</button>
+                    ))}
+                  </div>  
+                  <a href="https://www.youtube.com">github link to Build an Agent</a>
+                </div>
               </div>
 
               <div className='mid'>
