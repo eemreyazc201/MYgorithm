@@ -1,41 +1,92 @@
 .Homepage {
-    display: flex; align-items: center; flex-direction: column; min-height: 98vh; padding-top: 2vh;
-    background-color: #1b1b1b; color: white;
+    display: flex; align-items: center; flex-direction: column;
+    border-radius: 4vh; background: #212121; 
+    box-shadow: 2vh 2vh 4vh rgb(25, 25, 25), -2vh -2vh 4vh rgb(60, 60, 60);
+    height: 90vh; width: 195vh; margin: 5vh;
 }
 
-.Homepage > .main {
-    display: flex; align-items: top; justify-content: left; margin: 10px; width: 100%; height: 100%;
+.Homepage > .top {
+    display: flex; align-items: center; justify-content: space-between; width: 92%; height: 10%; background-color: #623a91;
+    border-radius: 4vh 4vh 0 0; padding-left: 4%; padding-right: 4%; color: #17111e; font-size: xx-large; font-weight: bold;
 }
 
-.Homepage > .main > section {
-    display: flex; align-items: center; justify-content: center; flex-direction: column; background-color: blue; width: 20%; height: 100%;
+.Homepage > .top > .name {
+    display: flex; align-items: center; justify-content: center;
 }
 
-.Homepage > .main > .algorithms {
-     height: 100%; left: 0px; padding: 10px;
+.Homepage > .top > .name > img {
+    width: auto; height: 7vh; margin-right: 2vh;
 }
 
-.Homepage > .main > .divider {
-    width: 0.1%; height: 100%; background-color: white; margin: 0 0.8%;
+.Homepage > .top > .name > p {
+    margin: 0; padding: 0;;
 }
 
-.Homepage > .main > .posts {
-    width:54.9%; height: 100%; background-color: red;
+.Homepage > section {
+    display: flex; align-items: center; justify-content: space-between; width: 98%; height: 82%; padding: 2%;
 }
 
-.Homepage > .main > .new-post {
-    width: 20%; height: fit-content; max-height: 100%; min-height: 200px; background-color: green; right: 0px; margin: 0 1.7%; border-radius: 16px;
-    display: flex; align-items: center; justify-content: center; flex-direction: column;
+.Homepage > section > .left {
+    width: 20%; height: 96%; padding: 2%; border-radius: 4vh 0 0 4vh; background-color: #2f2639;
 }
 
-.Homepage > .main > .new-post > textarea {
-    width: 80%; margin: 5px; padding: 5px; resize: none;
+.Homepage > section > .mid {
+    width: 50%; height: 96%; padding: 0; margin: 0 2%;
+    display: flex; align-items: center; justify-content: top; flex-direction: column;
 }
 
-.Homepage > .main > .new-post > input {
-    width: 80%; margin: 5px; padding: 5px;
+.Homepage > section > .right {
+    width: 20%; height: 96%; padding: 2%; border-radius: 0 4vh 4vh 0; background-color: #2f2639;
 }
 
-.Homepage > .main > .new-post > button {
-    width: 60%; margin: 5px; padding: 5px;
+.left > input {
+    width: 96%; height: 5%; padding: 2%; margin: 2% 0; background-color: transparent; 
+    border: none; border-bottom: #212121 2px solid; color: #b29eca;
+}
+
+.left > .add-algorithm {
+    width: 100%; height: 7%; padding: 2%; margin: 2% 0; background-color: #212121;
+    border: none; border-radius: 5px; color: #b29eca;
+}
+
+.left > .divider {
+    width: 100%; height: 0.2%; background-color: #b29eca; margin: 2% 0 2% 0;
+}
+
+.left > .algorithms > button {
+    min-width: 100%; height: 7%; padding: 2%; margin: 2% 0; background-color: #212121;
+    border: none; border-radius: 5px; color: #b29eca;
+}
+
+.right > .new-post > textarea {
+    width: 96%; padding: 2%; margin: 2% 0; background-color: #212121;
+    border: none; border-radius: 5px; color: #b29eca; resize: none;
+}
+
+.right > .new-post > input {
+    width: 96%; height: 5%; padding: 2%; margin: 2% 0; background-color: transparent; 
+    border: none; border-bottom: #212121 2px solid; color: #b29eca;
+}
+
+.right > .new-post > button {
+    min-width: 100%; height: 7%; padding: 2%; margin: 2% 0; background-color: #212121;
+    border: none; border-radius: 5px; color: #b29eca;
+}
+
+.mid > .posts > div {
+    width: 96%; height: fit-content; padding: 2%; background-color: #2f2639; font-size: small; margin-top: 10px;
+    color: #d3c2e8; overflow-y: auto;
+    display: flex; justify-content: space-between; align-items: center;
+}
+
+.mid > .posts > div > .post {
+    width: 85%; height: 100%;
+}
+
+.mid > .posts > div > .post > p {
+    margin: 0;
+}
+
+.mid > .posts > div > .like-button {
+    width: 10%; height: 50px; background-color: #212121; border: none; color: #b29eca; padding: 0; margin: 0;
 }

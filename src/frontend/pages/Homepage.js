@@ -15,6 +15,8 @@ import axios from 'axios';
 import uri from '../algorithm-cdis.json';
 import uris from '../uris.json';
 
+import logo from '../logo.png';
+
 const queryClient = new QueryClient();
 const config = getDefaultConfig({
   projectId: PROJECT_ID,
@@ -43,52 +45,60 @@ export default function Homepage () {
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider initialChain={sepolia}>
-            <div className="Homepage">
-              <ConnectButton label="Sign in" accountStatus="avatar" chainStatus="icon" showBalance={true} />
-              <div className="main">
-                <section>
-
-                  <div className="algorithms">{Object.entries(uris).map(([key, uri]) => (
-                    <button key={key} onClick={async () => {
-                      let feed = (await axios.post("http://localhost:4000/algorithm", {
-                        posts: await getPosts(),
-                        agentURL: `https://agents.phala.network/ipfs/${uri.substring("ipfs://".length)}`
-                        }, {})).data; 
-  
-                      setPosts(feed);
-                    }}>{key}</button>
-                  ))}</div>
-                  <input 
-                      type="text" 
-                      value={key}
-                      onChange={(e) => setKey(e.target.value)}
-                      placeholder="Algorithm Name"
-                  />
-                  <input 
-                      type="text" 
-                      value={value}
-                      onChange={(e) => setValue(e.target.value)}
-                      placeholder="Algorithm URI"
-                  />
-                  <button onClick={async () => {
-                    axios.post("http://localhost:4000/add-algorithm", {
-                      key: key,
-                      value: value,
-                      uris: uris
-                    },{})
-                  }}>Add Algorithm</button>
-
-                </section>
+          <div className="Homepage">
+            <div className="top">
+              <div className="name">
+                <img src={logo} alt="logo" />
+                <p>MYgorithm</p>
+              </div>
+            </div>
+            <section>
+              <div className='left'>
+                <input 
+                    type="text" 
+                    value={key}
+                    onChange={(e) => setKey(e.target.value)}
+                    placeholder="Algorithm Name"
+                />
+                <input 
+                    type="text" 
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    placeholder="Algorithm URI"
+                />
+                <button className='add-algorithm' onClick={async () => {
+                  axios.post("http://localhost:4000/add-algorithm", {
+                    key: key,
+                    value: value,
+                    uris: uris
+                  },{})
+                }}>Add Algorithm</button>
                 <div className='divider'></div>
+                <div className="algorithms">{Object.entries(uris).map(([key, uri]) => (
+                  <button key={key} onClick={async () => {
+                    let feed = (await axios.post("http://localhost:4000/algorithm", {
+                      posts: await getPosts(),
+                      agentURL: `https://agents.phala.network/ipfs/${uri.substring("ipfs://".length)}`
+                      }, {})).data; 
+
+                    setPosts(feed);
+                  }}>{key}</button>
+                ))}</div>
+              </div>
+
+              <div className='mid'>
+                <ConnectButton label="Sign in" accountStatus="avatar" chainStatus="icon" showBalance={true} />
                 <div className="posts">
                   {posts.map(post => (
-                    <div key={post.id} className="post">
-                      <p>Author: {post.author}</p>
-                      <p>{post.content}</p>
-                      <div>
-                        {post.hashtags.map(tag => (
-                          <span key={tag} className="hashtag">{tag}</span>
-                        ))}
+                    <div>
+                      <div key={post.id} className="post">
+                        <p>Author: {post.author}</p>
+                        <p>{post.content}</p>
+                        <div>
+                          {post.hashtags.map(tag => (
+                            <span key={tag} className="hashtag">{tag}</span>
+                          ))}
+                        </div>
                       </div>
                       <button className="like-button" onClick={async () => {
                         if (await isLiked(post.id)) {
@@ -96,10 +106,13 @@ export default function Homepage () {
                         } else {
                           await likePost(post.id);
                         }
-                      }}>{`Like ${(post.like.length)}`}</button>
+                      }}>{`Like ${(post.like.length)}`}</button>                      
                     </div>
                   ))}
                 </div>
+              </div>
+
+              <div className='right'>
                 <div className='new-post'>
                   <textarea 
                     ref={textareaRef}
@@ -125,7 +138,8 @@ export default function Homepage () {
                   }}>Post</button>
                 </div>
               </div>
-            </div>
+            </section>
+          </div>
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
