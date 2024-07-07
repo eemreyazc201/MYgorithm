@@ -12,7 +12,7 @@ import { getPosts, createPost, likePost, unlikePost, isLiked } from "../contract
 import { PROJECT_ID } from '../config';
 
 import axios from 'axios';
-import uri from '../algorithm-cdis.json';
+// import uri from '../algorithm-cdis.json';
 import uris from '../uris.json';
 
 import logo from '../logo.png';
@@ -30,6 +30,7 @@ export default function Homepage () {
   const [key, setKey] = useState('');
   const [value, setValue] = useState('');
   const [posts, setPosts] = useState([]);
+  const [uri, setUri] = useState('');
   const textareaRef = useRef(null);
 
   useEffect(() => {
@@ -82,7 +83,8 @@ export default function Homepage () {
                           posts: await getPosts(),
                           agentURL: `https://agents.phala.network/ipfs/${uri.substring("ipfs://".length)}`
                           }, {})).data; 
-
+                        
+                        setUri(uri);
                         setPosts(feed);
                       }}>{key}</button>
                     ))}
@@ -138,7 +140,7 @@ export default function Homepage () {
                     setPostText(''); setHashtags(''); 
                     let feed = (await axios.post("http://localhost:4000/algorithm", {
                       posts: await getPosts(),
-                      agentURL: `https://agents.phala.network/ipfs/${uri.uri.substring("ipfs://".length)}`
+                      agentURL: `https://agents.phala.network/ipfs/${uri.substring("ipfs://".length)}`
                       }, {})).data; 
 
                     setPosts(feed);
